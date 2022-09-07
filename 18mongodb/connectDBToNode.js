@@ -7,8 +7,13 @@ const client = new MongoClient(url);
 async function getData(){
     let result = await client.connect();
     let db = result.db(database);
-    let collection = db.collection('products');
-    let response = await collection.find({}).toArray();
-    console.log(response)
+    return db.collection('products');
+//     let response = await collection.find({}).toArray();
+//     console.log(response)
+
 }
-getData();
+getData().then((res)=>{
+    res.find({name:'ali'}).toArray().then((data)=>{
+        console.warn(data)
+    }); // this will also return promise without then so will embed then here
+})
