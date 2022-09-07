@@ -3,6 +3,7 @@ const url = "mongodb://localhost:27017";
 const database = 'e-com'
 const client = new MongoClient(url);
 
+// connecting to mongo and geting data from 
 async function getData(){
     let result = await client.connect();
     let db = result.db(database);
