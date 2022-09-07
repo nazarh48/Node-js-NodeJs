@@ -1,19 +1,18 @@
-const {MongoClient} = require('mongodb');
-const url = "mongodb://localhost:27017";
-const database = 'e-com'
-const client = new MongoClient(url);
+const dbConnect = require("./dbConnnect"); // this is comming from other database file
 
-// connecting to mongo and geting data from 
-async function getData(){
-    let result = await client.connect();
-    let db = result.db(database);
-    return db.collection('products');
-//     let response = await collection.find({}).toArray();
-//     console.log(response)
 
+// <-----PROMISES USED HERE ----->
+// getData().then((res)=>{
+//     res.find({name:'ali'}).toArray().then((data)=>{
+//         console.warn(data)
+//     }); // this will also return promise without then so will embed then here
+// })
+
+// ASYNC AWAIT 
+const main = async ()=>{
+    let data = await dbConnect();
+    data = await data.find().toArray();
+    console.log(data)
 }
-getData().then((res)=>{
-    res.find({name:'ali'}).toArray().then((data)=>{
-        console.warn(data)
-    }); // this will also return promise without then so will embed then here
-})
+
+main();
